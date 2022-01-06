@@ -42,7 +42,7 @@ while (True):
         "VALUES (%s, %s, %s, %s, %s, %s, %s)")
         dados_cliente = (nome, cpf, endereco, numero_casa, cidade, estado, pais )
         conectar.execute(adicionar, dados_cliente)
-        emp_no = conectar.lastrowid
+        cursor.close()
 
 
 
