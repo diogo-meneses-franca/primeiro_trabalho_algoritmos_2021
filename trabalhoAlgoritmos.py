@@ -48,25 +48,36 @@ while (True):
         conectar.execute(adicionar, dados_cliente)
         conectar.close()
         cnx.close()
+        print("Dados inseridos com sucesso!!!")
+        break
 
 #Criando a opção buscar
     if (opcao == "2"):
-        cpf = str(input("Digite o CPF(somente números):"))
+        cpf = int(input("Digite o CPF(somente números):"))
         cnx = mysql.connector.connect(host = "127.0.0.1", user = "root", password = "",database = "cadastro")
         conectar = cnx.cursor()
-        buscar = ("select nome, cpf, endereco, numero_casa, cidade, estado, pais from pessoas"
-        "where cpf between ({}) and ({}); " .format(cpf,cpf))
+        buscar = ("select nome, cpf, endereco, numero_casa, cidade, estado, pais from pessoas where cpf='%d';" %(cpf))
         conectar.execute(buscar)
         for (nome, cpf, endereco, numero_casa, cidade, estado, pais) in conectar:
             print("""Nome: {} 
-            CPF: {} 
-            Endereço: {}, número: {} 
-            Cidade: {} 
-            Estado: {}  
-            País: {}""" .format(nome, cpf, endereco, numero_casa, cidade, estado, pais))
+CPF: {}
+Endereço: {}, número: {} 
+Cidade: {} 
+Estado: {}  
+País: {}""" .format(nome, cpf, endereco, numero_casa, cidade, estado, pais))
         conectar.close()
         cnx.close()
-
+        break
+    if (opcao == "4"):
+        cpf = int(input("Digite o CPF(somente números):"))  
+        cnx = mysql.connector.connect(host = "127.0.0.1", user = "root", password = "",database = "cadastro")
+        conectar = cnx.cursor()
+        deletar = ("delete from pessoas where cpf='%d';" %(cpf))
+        print("Dados deletados com sucesso!")
+        conectar.execute(deletar)
+        conectar.close()
+        cnx.close()
+        break
 
 
 
