@@ -60,11 +60,11 @@ while (True):
         conectar.execute(buscar)
         for (nome, cpf, endereco, numero_casa, cidade, estado, pais) in conectar:
             print("""Nome: {} 
-CPF: {}
-Endereço: {}, número: {} 
-Cidade: {} 
-Estado: {}  
-País: {}""" .format(nome, cpf, endereco, numero_casa, cidade, estado, pais))
+            CPF: {}
+            Endereço: {}, número: {} 
+            Cidade: {} 
+            Estado: {}  
+            País: {}""" .format(nome, cpf, endereco, numero_casa, cidade, estado, pais))
         conectar.close()
         cnx.close()
         break
