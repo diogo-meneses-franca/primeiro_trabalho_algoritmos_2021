@@ -9,6 +9,7 @@ try:
                                                                      #Criando o menu
     if(db_connection.is_connected):
         menu = True                       # VARIÁVEL CONTADORA PARA O LAÇO while DO MENU
+
         while(menu == True):
             print("=-"*20, "CADASTRO DE CLIENTES", "=-" * 20)
             print("""Menu\n
@@ -17,10 +18,12 @@ try:
             Excluir[3]
             Sair[4]""")
             opcao = int(input("Digite a opção: "))
+
             contadora_opcao1 = True               # VARIÁVEL CONTADORA, RESPONSÁVEL POR DAR INÍCIO OU FIM À REPETIÇÃO
             while (contadora_opcao1 == True):
                 if (opcao == 4):
-                    break
+                    menu == False
+
                 if (opcao == 1):
                     nome = input("Nome do cliente: ")
                     cpf = str(input("CPF: "))
@@ -40,16 +43,41 @@ try:
 
                     outro = input(f"| REALIZAR OUTRO CADASTRO? [S/N] |\n")
                     outro = outro.upper()
+
                     if(outro == 'S'):
                         contadora_opcao1 = True
                     else:
                         contadora_opcao1 = False
+                        
                 if(opcao == 2):
+                    contadora_opcao2 = True
                     consulta = ("SELECT id, nome, cpf, endereco, numero_casa, cidade, estado, pais FROM pessoas;")
                     cursor.execute(consulta)
-                    for (id, nome, cpf, endereco, numero_casa, cidade, estado, pais) in cursor:
-                        print(f"| ID: {id} | NOME: {nome} | CPF: {cpf} | ENDEREÇO: {endereco} | Nº: {numero_casa} | CIDADE: {cidade} | ESTADO: {estado} | PAÍS: {pais} |")
-                    break
+                    
+                    while(contadora_opcao2 == True):
+
+                        for (id, nome, cpf, endereco, numero_casa, cidade, estado, pais) in cursor:
+                            print(f"{'-'*160}\n| ID: {id} | NOME: {nome} | CPF: {cpf} | ENDEREÇO: {endereco} | Nº: {numero_casa} | CIDADE: {cidade} | ESTADO: {estado} | PAÍS: {pais} | \n{'-'*160}")
+
+                        id_update = int(input("Digite o ID do cadastro que deseja alterar: "))
+                        id_update = str(id_update)
+                        coluna = int(input(f"{'='*30} UPDATE {'='*30}\nNOME [1] \nCPF[2] \nENDEREÇO [3] \nDigite a opção desejada: "))
+
+                        if(coluna == 1):
+                            nome_update = input("Nome: ")
+                            update = ("UPDATE pessoas SET nome=(%s) WHERE id=(%s)")
+                            dados_update = (nome_update, id_update)
+                            cursor.execute(update, dados_update)
+                            db_connection.commit()
+                            print("Alteração realizada com sucesso!")
+
+                            novamente = input("Deseja realizar outra alteração? [s/n]: ")
+                            novamente = novamente.lower()
+                            if(novamente == 's'):
+                                contadora_opcao2 = True
+                            else:
+                                contadora_opcao2 = False
+                        break
 
 except mysql.connector.Error as error:
     if error.errno == errorcode.ER_BAD_DB_ERROR:
