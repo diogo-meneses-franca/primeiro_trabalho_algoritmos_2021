@@ -1,5 +1,7 @@
 import datetime
 import mysql.connector
+
+#Realizando a conexão com o servidor mysql
 try:
     db_connection = mysql.connector.connect(host = "127.0.0.1", user = "root", password = "",database = "cadastro")
     print('Conectado ao banco de dados!')
@@ -14,6 +16,7 @@ else:
     db_connection.close()
 
 #Criando o menu
+
 print("=-"*20, "CADASTRO DE CLIENTES", "=-" * 20)
 print("""Menu\n
 Inserir[1] 
