@@ -17,12 +17,16 @@ try:
             Editar[2]
             Excluir[3]
             Sair[4]""")
-            opcao = int(input("Digite a opção: "))
+            opcao = int(input(f"\nDigite a opção: "))
 
-            contadora_opcao1 = True               # VARIÁVEL CONTADORA, RESPONSÁVEL POR DAR INÍCIO OU FIM À REPETIÇÃO
+            contadora_opcao1 = True               # VARIÁVEL CONTADORA REFERENTE A Inserir[1]
             while (contadora_opcao1 == True):
                 if (opcao == 4):
-                    menu == False
+                    print(f"\n{'*'*15} Conexão com o Banco de Dados encerrada {'*'*15}")
+                    menu = False
+                    cursor.close()
+                    db_connection.close
+                    break                         # QUEBRA O LOOP DO menu
 
                 if (opcao == 1):
                     nome = input("Nome do cliente: ")
@@ -35,13 +39,13 @@ try:
                                                                         # Inserindo os dados informados
                     adicionar = ("insert into pessoas"
                     "(nome, cpf, endereco, numero_casa, cidade, estado, pais)"
-                    "VALUES (%s, %s, %s, %s, %s, %s, %s)")
+                    "VALUES (%s, %s, %s, %s, %s, %s, %s)")              # SCRIPT EM SQL
                     dados_cliente = (nome, cpf, endereco, numero_casa, cidade, estado, pais )
                     cursor.execute(adicionar, dados_cliente)
                     db_connection.commit()                 # PROPRIEDADE QUE GRAVARÁ OS VALORES EXECUTADOS NO DB
-                    print(f"\n{'='*15} Adicionado {cursor.rowcount} cadastro(s) ao Banco de Dados {'='*15}\n")         # ESTA PROPRIEDADE RETORNARÁ O Nº DE LINHAS QUE FORAM ADICIONADAS AO DB
+                    print(f"\n{'*'*15} Adicionado {cursor.rowcount} cadastro(s) ao Banco de Dados {'*'*15}\n")         # ESTA PROPRIEDADE RETORNARÁ O Nº DE LINHAS QUE FORAM ADICIONADAS AO DB
 
-                    outro = input(f"| REALIZAR OUTRO CADASTRO? [S/N] |\n")
+                    outro = input(f"| REALIZAR OUTRO CADASTRO? [S/N] | : ")
                     outro = outro.upper()
 
                     if(outro == 'S'):
@@ -50,34 +54,62 @@ try:
                         contadora_opcao1 = False
                         
                 if(opcao == 2):
-                    contadora_opcao2 = True
-                    consulta = ("SELECT id, nome, cpf, endereco, numero_casa, cidade, estado, pais FROM pessoas;")
+                    contadora_opcao2 = True               # VARIÁVEL CONTADORA REFERENTE A Editar[2]
+                    consulta = ("SELECT id, nome, cpf, endereco, numero_casa, cidade, estado, pais FROM pessoas;")              # SCRIPT EM SQL
                     cursor.execute(consulta)
                     
                     while(contadora_opcao2 == True):
-
                         for (id, nome, cpf, endereco, numero_casa, cidade, estado, pais) in cursor:
                             print(f"{'-'*160}\n| ID: {id} | NOME: {nome} | CPF: {cpf} | ENDEREÇO: {endereco} | Nº: {numero_casa} | CIDADE: {cidade} | ESTADO: {estado} | PAÍS: {pais} | \n{'-'*160}")
 
                         id_update = int(input("Digite o ID do cadastro que deseja alterar: "))
                         id_update = str(id_update)
-                        coluna = int(input(f"{'='*30} UPDATE {'='*30}\nNOME [1] \nCPF[2] \nENDEREÇO [3] \nDigite a opção desejada: "))
-
-                        if(coluna == 1):
-                            nome_update = input("Nome: ")
-                            update = ("UPDATE pessoas SET nome=(%s) WHERE id=(%s)")
-                            dados_update = (nome_update, id_update)
-                            cursor.execute(update, dados_update)
-                            db_connection.commit()
-                            print("Alteração realizada com sucesso!")
-
-                            novamente = input("Deseja realizar outra alteração? [s/n]: ")
+                        coluna = int(input(f"\n{'='*30} UPDATE {'='*30}\n\nNOME [1] \nCPF[2] \nENDEREÇO [3] \n\nDigite a opção desejada: "))
+                        
+                        def outra_alteracao():                           # FUNÇÃO RESPOSÁVEL POR PERGUNTAR POR OUTRA ALTERAÇÃO
+                            global contadora_opcao2
+                            novamente = input("| REALIZAR OUTRA ALTERAÇÃO? [S/N] | : ")
                             novamente = novamente.lower()
                             if(novamente == 's'):
                                 contadora_opcao2 = True
                             else:
                                 contadora_opcao2 = False
-                        break
+                            return contadora_opcao2
+
+                        if(coluna == 1):
+                            nome_update = input("\nNOME: ")
+                            update = ("UPDATE pessoas SET nome=(%s) WHERE id=(%s)")              # SCRIPT EM SQL
+                            dados_update = (nome_update, id_update)
+                            cursor.execute(update, dados_update)
+                            db_connection.commit()
+                            print(f"\n{'*'*15} Alteração realizada com sucesso! {'*'*15}\n")
+
+                            outra_alteracao()
+
+                        elif(coluna == 2):
+                            cpf_update = input("\nCPF: ")
+                            update = ("UPDATE pessoas SET cpf=(%s) WHERE id=(%s)")              # SCRIPT EM SQL
+                            dados_update = (cpf_update, id_update)
+                            cursor.execute(update, dados_update)
+                            db_connection.commit()
+                            print(f"\n{'*'*15} Alteração realizada com sucesso! {'*'*15}\n")
+
+                            outra_alteracao()
+
+                        elif(coluna == 3):
+                            endereco_update = input("\nENDEREÇO: ")
+                            numero_update = input("\nNº: ")
+                            cidade_update = input("\nCIDADE: ")
+                            estado_update = input("\nESTADO: ")
+                            pais_update = input("\nPAIS: ")
+                            update = ("UPDATE pessoas SET endereco=(%s), numero_casa=(%s), cidade=(%s), estado=(%s), pais=(%s) WHERE id=(%s)")              # SCRIPT EM SQL
+                            dados_update = (endereco_update, numero_update, cidade_update, estado_update, pais_update, id_update)
+                            cursor.execute(update, dados_update)
+                            db_connection.commit()
+                            print(f"\n{'*'*15} Alteração realizada com sucesso! {'*'*15}\n")
+
+                            outra_alteracao()
+                    break                         # QUEBRA O LOOP DO Editar[2]
 
 except mysql.connector.Error as error:
     if error.errno == errorcode.ER_BAD_DB_ERROR:
