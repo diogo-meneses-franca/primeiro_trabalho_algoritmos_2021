@@ -12,12 +12,12 @@ try:
 
         while(menu == True):
             print("=-"*20, "CADASTRO DE CLIENTES", "=-" * 20)
-            print("""Menu\n
-            Inserir[1]
-            Consultar[2]
-            Editar[3]
-            Excluir[4]
-            Sair[5]""")
+            print("Menu\n")
+            print("Inserir[1]")
+            print("Consultar[2]")
+            print("Editar[3]")
+            print("Excluir[4]")
+            print("Sair[5]")
             opcao = input("\nDigite a opção: ")
 
             contadora_opcao1 = True               # VARIÁVEL CONTADORA REFERENTE A Inserir[1]
