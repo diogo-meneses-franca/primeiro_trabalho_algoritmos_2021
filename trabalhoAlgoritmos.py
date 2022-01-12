@@ -95,8 +95,7 @@ try:
                         for (id, nome, cpf, endereco, numero_casa, cidade, estado, pais) in cursor:
                             print(f"{'-'*160}\n| ID: {id} | NOME: {nome} | CPF: {cpf} | ENDEREÇO: {endereco} | Nº: {numero_casa} | CIDADE: {cidade} | ESTADO: {estado} | PAÍS: {pais} | \n{'-'*160}")
 
-                        id_update = int(input("\nDigite o ID do cadastro que deseja alterar: "))
-                        id_update = str(id_update)
+                        id_update = (input("\nDigite o ID do cadastro que deseja alterar: "))
                         coluna = int(input(f"\n{'='*30} UPDATE {'='*30}\n\nNOME [1] \nCPF[2] \nENDEREÇO [3] \n\nDigite a opção desejada: "))
                         
                         def outra_alteracao():                           # FUNÇÃO RESPOSÁVEL POR PERGUNTAR POR OUTRA ALTERAÇÃO
