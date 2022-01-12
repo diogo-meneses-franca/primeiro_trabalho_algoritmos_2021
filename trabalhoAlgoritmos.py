@@ -73,7 +73,7 @@ try:
                             print(f"País: {pais}")
                             
 
-                            outro = input(f"| REALIZAR OUTRA CONSULTA? [S/N] | : ") 
+                            outro = input("| REALIZAR OUTRA CONSULTA? [S/N] | : ") 
                             if(outro in 'simSim'):
                                 contadora_opcao2 = True
                             else:
@@ -140,12 +140,17 @@ try:
                 if (opcao == "4"):
                     contadora_opcao4 = True
                     while(contadora_opcao4 == True):
-                        cpf = int(input("Digite o CPF(somente números):"))  
-                        deletar = ("delete from pessoas where cpf='%d';" %(cpf))
+                        consulta = ("SELECT id, nome, cpf, endereco, numero_casa, cidade, estado, pais FROM pessoas;")              # SCRIPT EM SQL
+                        cursor.execute(consulta)
+                        for (id, nome, cpf, endereco, numero_casa, cidade, estado, pais) in cursor:
+                            print(f"{'-'*160}\n| ID: {id} | NOME: {nome} | CPF: {cpf} | ENDEREÇO: {endereco} | Nº: {numero_casa} | CIDADE: {cidade} | ESTADO: {estado} | PAÍS: {pais} |")
+
+                        id = int(input("Digite o id:"))  
+                        deletar = ("delete from pessoas where id ={};" .format(id))
                         print("Dados deletados com sucesso!")
                         cursor.execute(deletar)
 
-                        outro = input(f"| REALIZAR OUTRA EXCLUSÃO? [S/N] | : ") 
+                        outro = input("| REALIZAR OUTRA EXCLUSÃO? [S/N] | : ") 
                         if(outro in 'simSim'):
                             contadora_opcao4 = True
                         else:
