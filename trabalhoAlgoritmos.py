@@ -33,20 +33,20 @@ try:
                     break                         # QUEBRA O LOOP DO menu
 
                 if (opcao == "1"):
-                    nome = input("Nome do cliente: ")
-                    cpf = str(input("CPF: "))
-                    endereco = input("Endereço: ").strip()
-                    numero_casa = input("Número: ")
-                    cidade = input("Cidade: ")
-                    estado = input("Estado: ")
-                    pais = (input("País: "))
+                    insertnome = input("Nome do cliente: ")
+                    insertcpf = str(input("CPF: "))
+                    insertendereco = input("Endereço: ").strip()
+                    insertnumero_casa = input("Número: ")
+                    insertcidade = input("Cidade: ")
+                    insertestado = input("Estado: ")
+                    insertpais = (input("País: "))
 
                     # Inserindo os dados informados
 
                     adicionar = ("insert into pessoas"
                     "(nome, cpf, endereco, numero_casa, cidade, estado, pais)"
                     "VALUES (%s, %s, %s, %s, %s, %s, %s)")              # SCRIPT EM SQL
-                    dados_cliente = (nome, cpf, endereco, numero_casa, cidade, estado, pais )
+                    dados_cliente = (insertnome, insertcpf, insertendereco, insertnumero_casa, insertcidade, insertestado, insertpais )
                     cursor.execute(adicionar, dados_cliente)
                     db_connection.commit()                 # PROPRIEDADE QUE GRAVARÁ OS VALORES EXECUTADOS NO DB
                     print(f"\n{'*'*15} Adicionado {cursor.rowcount} cadastro(s) ao Banco de Dados {'*'*15}\n")         # ESTA PROPRIEDADE RETORNARÁ O Nº DE LINHAS QUE FORAM ADICIONADAS AO DB
@@ -62,7 +62,7 @@ try:
                     contadora_opcao2 = True               # VARIÁVEL CONTADORA REFERENTE A Consultar[2]
                     while(contadora_opcao2 == True):
                         cpf = int(input("Digite o CPF(somente números):"))
-                        buscar = ("select nome, cpf, endereco, numero_casa, cidade, estado, pais from pessoas where cpf='%d';" %(cpf))
+                        buscar = ("SELECT nome, cpf, endereco, numero_casa, cidade, estado, pais FROM pessoas WHERE cpf='%d';" %(cpf))
                         cursor.execute(buscar)
                         for (nome, cpf, endereco, numero_casa, cidade, estado, pais) in cursor:
                             print(f"Nome: {nome}")
