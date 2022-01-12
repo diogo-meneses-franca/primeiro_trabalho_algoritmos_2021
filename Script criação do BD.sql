@@ -10,4 +10,5 @@ create table if not exists pessoas(
 `estado` varchar(100),
 `pais` varchar(100) default 'Brasil',
 primary key(id)) default char set = utf8mb4;
-show tables;
+
+select * from pessoas;

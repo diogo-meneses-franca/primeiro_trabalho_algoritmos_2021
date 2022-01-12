@@ -14,14 +14,20 @@ try:
             print("=-"*20, "CADASTRO DE CLIENTES", "=-" * 20)
             print("""Menu\n
             Inserir[1]
-            Editar[2]
-            Excluir[3]
-            Sair[4]""")
+            Consultar[2]
+            Editar[3]
+            Excluir[4]
+            Sair[5]""")
             opcao = int(input(f"\nDigite a opção: "))
 
             contadora_opcao1 = True               # VARIÁVEL CONTADORA REFERENTE A Inserir[1]
             while (contadora_opcao1 == True):
-                if (opcao == 4):
+
+                if(opcao not in (1, 2, 3, 4, 5)):
+                    print(f"\n{'='*20}> OPÇÃO INVÁLIDA, TENTE NOVAMENTE <{'='*20}\n")
+                    break
+
+                if (opcao == 5):
                     print(f"\n{'*'*15} Conexão com o Banco de Dados encerrada {'*'*15}")
                     menu = False
                     cursor.close()
@@ -29,6 +35,7 @@ try:
                     break                         # QUEBRA O LOOP DO menu
 
                 if (opcao == 1):
+                    print(f"\n{'>'*40} CREATE {'<'*40}\n")
                     nome = input("Nome do cliente: ")
                     cpf = str(input("CPF: "))
                     endereco = input("Endereço: ").strip()
@@ -52,29 +59,55 @@ try:
                         contadora_opcao1 = True
                     else:
                         contadora_opcao1 = False
+
+                if (opcao == 2):
+                    contadora_opcao2 = True               # VARIÁVEL CONTADORA REFERENTE A Consultar[2]
+                    while(contadora_opcao2 == True):
+                        print(f"\n{'>'*40} READ {'<'*40}\n")
+                        cpf = int(input("\nDigite o CPF(somente números): "))
+                        buscar = ("SELECT nome, cpf, endereco, numero_casa, cidade, estado, pais FROM pessoas WHERE cpf='%d';" %(cpf))              # SCRIPT EM SQL
+                        cursor.execute(buscar)
+
+                        for (nome, cpf, endereco, numero_casa, cidade, estado, pais) in cursor:
+                            print(f"Nome: {nome}")
+                            print(f"CPF: {cpf}")
+                            print(f"Endereço: {endereco}, número: {numero_casa}") 
+                            print(f"Cidade: {cidade}") 
+                            print(f"Estado: {estado}")  
+                            print(f"País: {pais}")
+                            
+                            outro = input(f"\n| REALIZAR OUTRA CONSULTA? [S/N] | : ")
+                            outro = outro.upper()
+
+                            if(outro == 'S'):
+                                contadora_opcao2 = True
+                            else:
+                                contadora_opcao2 = False
+                    break                         # QUEBRA O LOOP DO Consultar[2]
                         
-                if(opcao == 2):
-                    contadora_opcao2 = True               # VARIÁVEL CONTADORA REFERENTE A Editar[2]
+                if(opcao == 3):
+                    contadora_opcao3 = True               # VARIÁVEL CONTADORA REFERENTE A Editar[3]
+                    print(f"\n{'>'*40} UPDATE {'<'*40}\n")
                     consulta = ("SELECT id, nome, cpf, endereco, numero_casa, cidade, estado, pais FROM pessoas;")              # SCRIPT EM SQL
                     cursor.execute(consulta)
                     
-                    while(contadora_opcao2 == True):
+                    while(contadora_opcao3 == True):
                         for (id, nome, cpf, endereco, numero_casa, cidade, estado, pais) in cursor:
                             print(f"{'-'*160}\n| ID: {id} | NOME: {nome} | CPF: {cpf} | ENDEREÇO: {endereco} | Nº: {numero_casa} | CIDADE: {cidade} | ESTADO: {estado} | PAÍS: {pais} | \n{'-'*160}")
 
-                        id_update = int(input("Digite o ID do cadastro que deseja alterar: "))
+                        id_update = int(input("\nDigite o ID do cadastro que deseja alterar: "))
                         id_update = str(id_update)
                         coluna = int(input(f"\n{'='*30} UPDATE {'='*30}\n\nNOME [1] \nCPF[2] \nENDEREÇO [3] \n\nDigite a opção desejada: "))
                         
                         def outra_alteracao():                           # FUNÇÃO RESPOSÁVEL POR PERGUNTAR POR OUTRA ALTERAÇÃO
-                            global contadora_opcao2
+                            global contadora_opcao3
                             novamente = input("| REALIZAR OUTRA ALTERAÇÃO? [S/N] | : ")
                             novamente = novamente.lower()
                             if(novamente == 's'):
-                                contadora_opcao2 = True
+                                contadora_opcao3 = True
                             else:
-                                contadora_opcao2 = False
-                            return contadora_opcao2
+                                contadora_opcao3 = False
+                            return contadora_opcao3
 
                         if(coluna == 1):
                             nome_update = input("\nNOME: ")
@@ -109,7 +142,26 @@ try:
                             print(f"\n{'*'*15} Alteração realizada com sucesso! {'*'*15}\n")
 
                             outra_alteracao()
-                    break                         # QUEBRA O LOOP DO Editar[2]
+                    break                         # QUEBRA O LOOP DO Editar[3]
+
+                if (opcao == 4):
+                    contadora_opcao4 = True
+                    print(f"\n{'>'*40} DELETE {'<'*40}\n")
+
+                    while(contadora_opcao4 == True):
+                        cpf = int(input("Digite o CPF(somente números): "))  
+                        deletar = ("delete from pessoas where cpf='%d';" %(cpf))
+                        print(f"\n{'*'*15} Dados deletados com sucesso! {'*'*15}\n")
+                        cursor.execute(deletar)
+                        db_connection.commit()
+                        outro = input(f"| REALIZAR OUTRA EXCLUSÃO? [S/N] | : ")
+                        outro = outro.upper()
+
+                        if(outro == 'S'):
+                            contadora_opcao4 = True
+                        else:
+                            contadora_opcao4 = False
+                    break                         # QUEBRA O LOOP DO Excluir[4]
 
 except mysql.connector.Error as error:
     if error.errno == errorcode.ER_BAD_DB_ERROR:
