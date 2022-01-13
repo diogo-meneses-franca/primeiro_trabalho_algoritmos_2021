@@ -2,7 +2,7 @@ import mysql.connector
 from mysql.connector import errorcode
 
 try:
-    db_connection = mysql.connector.connect(host = "localhost", user = "root", password = "", database = "cadastro")
+    db_connection = mysql.connector.connect(host = "localhost", user = "yamacinelli", password = "765589", database = "cadastro")
     print('Conectado ao banco de dados!')
     cursor = db_connection.cursor()                  # CRIAÇÃO DO CURSOR LOGO NO INÍCIO PARA NÃO HAVER DUPLICAÇÕES
 
@@ -52,7 +52,7 @@ try:
                     db_connection.commit()                 # PROPRIEDADE QUE GRAVARÁ OS VALORES EXECUTADOS NO DB
                     print(f"\n{'*'*15} Adicionado {cursor.rowcount} cadastro(s) ao Banco de Dados {'*'*15}\n")         # ESTA PROPRIEDADE RETORNARÁ O Nº DE LINHAS QUE FORAM ADICIONADAS AO DB
 
-                    outro = input("| REALIZAR OUTRO CADASTRO? [S/N] | : ").upper()                   
+                    outro = input(f"| REALIZAR OUTRO CADASTRO? [S/N] | : ").upper()
 
                     if(outro == 'S'):
                         contadora_opcao1 = True
@@ -75,8 +75,7 @@ try:
                             print(f"Estado: {estado}")  
                             print(f"País: {pais}")
                             
-                            outro = input(f"\n| REALIZAR OUTRA CONSULTA? [S/N] | : ")
-                            outro = outro.upper()
+                            outro = input(f"\n| REALIZAR OUTRA CONSULTA? [S/N] | : ").upper()
 
                             if(outro == 'S'):
                                 contadora_opcao2 = True
@@ -93,19 +92,13 @@ try:
                     while(contadora_opcao3 == True):
                         for (id, nome, cpf, endereco, numero_casa, cidade, estado, pais) in cursor:
                             print(f"{'-'*160}\n| ID: {id} | NOME: {nome} | CPF: {cpf} | ENDEREÇO: {endereco} | Nº: {numero_casa} | CIDADE: {cidade} | ESTADO: {estado} | PAÍS: {pais} | \n{'-'*160}")
-<<<<<<< HEAD
-
+                        
                         id_update = (input("\nDigite o ID do cadastro que deseja alterar: "))
-=======
-                        id_update = input("Digite o ID do cadastro que deseja alterar: ")
->>>>>>> 48f3f74f99a419ed0f0f86d84c120251de377e79
                         coluna = int(input(f"\n{'='*30} UPDATE {'='*30}\n\nNOME [1] \nCPF[2] \nENDEREÇO [3] \n\nDigite a opção desejada: "))
                         
                         def outra_alteracao():                           # FUNÇÃO RESPOSÁVEL POR PERGUNTAR POR OUTRA ALTERAÇÃO
                             global contadora_opcao3
-                            novamente = input("| REALIZAR OUTRA ALTERAÇÃO? [S/N] | : ")
-                            novamente = novamente.lower()
-                            novamente = input("| REALIZAR OUTRA ALTERAÇÃO? [S/N] | : ").lower()
+                            novamente = input("| REALIZAR OUTRA ALTERAÇÃO? [S/N] | : ").upper()
                             if(novamente == 's'):
                                 contadora_opcao3 = True
                             else:
@@ -157,8 +150,7 @@ try:
                         print(f"\n{'*'*15} Dados deletados com sucesso! {'*'*15}\n")
                         cursor.execute(deletar)
                         db_connection.commit()
-                        outro = input(f"| REALIZAR OUTRA EXCLUSÃO? [S/N] | : ")
-                        outro = outro.upper()
+                        outro = input(f"| REALIZAR OUTRA EXCLUSÃO? [S/N] | : ").upper()
 
                         if(outro == 'S'):
                             contadora_opcao4 = True
