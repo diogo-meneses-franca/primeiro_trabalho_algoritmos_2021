@@ -2,12 +2,12 @@ import mysql.connector
 from mysql.connector import errorcode
 
 try:
-    db_connection = mysql.connector.connect(host = "localhost", user = "yamacinelli", password = "765589", database = "cadastro")
-    print('Conectado ao banco de dados!')
+    db_connection = mysql.connector.connect(host = "localhost", user = "root", password = "5526", database = "cadastro")
     cursor = db_connection.cursor()                  # CRIAÇÃO DO CURSOR LOGO NO INÍCIO PARA NÃO HAVER DUPLICAÇÕES
 
                                                                      #Criando o menu
     if(db_connection.is_connected):
+        print('Conectado ao banco de dados!')
         menu = True                       # VARIÁVEL CONTADORA PARA O LAÇO while DO MENU
 
         while(menu == True):
@@ -165,4 +165,3 @@ except mysql.connector.Error as error:
         print("Nome do usuário ou senha incorretos")
     else:
         print(error)
-        db_connection.close()               # CONEXÃO É INTERROMPIDA EM CASO DE ERRO
