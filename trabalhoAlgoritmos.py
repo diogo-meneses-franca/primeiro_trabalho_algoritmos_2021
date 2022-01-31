@@ -2,7 +2,7 @@ import mysql.connector
 from mysql.connector import errorcode
 
 try:
-    db_connection = mysql.connector.connect(host = "localhost", user = "root", password = "5526", database = "cadastro")
+    db_connection = mysql.connector.connect(host = "localhost", user = "root", password = "", database = "cadastro")
     cursor = db_connection.cursor()                  # CRIAÇÃO DO CURSOR LOGO NO INÍCIO PARA NÃO HAVER DUPLICAÇÕES
 
                                                                      #Criando o menu
@@ -12,12 +12,12 @@ try:
 
         while(menu == True):
             print("=-"*20, "CADASTRO DE CLIENTES", "=-" * 20)
-            print("""Menu\n
-            Inserir[1]
-            Consultar[2]
-            Editar[3]
-            Excluir[4]
-            Sair[5]""")
+            print("Menu\n")
+            print("Inserir[1]")
+            print("Consultar[2]")
+            print("Editar[3]")
+            print("Excluir[4]")
+            print("Sair[5]")
             opcao = int(input(f"\nDigite a opção: "))
 
             contadora_opcao1 = True               # VARIÁVEL CONTADORA REFERENTE A Inserir[1]
