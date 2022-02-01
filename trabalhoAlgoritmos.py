@@ -75,12 +75,12 @@ try:
                             print(f"Estado: {estado}")  
                             print(f"País: {pais}")
                             
-                            outro = input(f"\n| REALIZAR OUTRA CONSULTA? [S/N] | : ").upper()
+                        outro = input(f"\n| REALIZAR OUTRA CONSULTA? [S/N] | : ").upper()
 
-                            if(outro == 'S'):
-                                contadora_opcao2 = True
-                            else:
-                                contadora_opcao2 = False
+                        if(outro == 'S'):
+                            contadora_opcao2 = True
+                        else:
+                            contadora_opcao2 = False
                     break                         # QUEBRA O LOOP DO Consultar[2]
                         
                 if(opcao == 3):
