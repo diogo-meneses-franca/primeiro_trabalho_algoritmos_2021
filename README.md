@@ -1,8 +1,10 @@
 # TrabalhoAlgoritmos-31-01
  
-ESTE TRABALHO TEM COMO OBJETIVO CRIAR UM SISTEMA BÁSICO PARA INSERÇÃO, ALTERAÇÃO, CONSULTA E EXCLUSÃO DE DADOS DE CLIENTES UTILIZANDO PYTHON E UM SGBD.
+Este trabalho tem como objetivo criar um sistema básico para inserção, alteração, consulta e exclusão de dados de clientes utilizando python e um sgbd.
 
-POR SE TRATA DO MEU PRIMEIRO TRABALHO ACADÊMICO EM ENGENHARIA DE SOFTWARE PODERÃO HAVER ERROS E FALTA DE PADRÕES NO DESENVOLVIMENTO.
+Por se trata do meu primeiro trabalho acadêmico em engenharia de software poderão haver erros e falta de padrões no desenvolvimento.
 
-O OBJETIVO DOS PROFESSORES NESTE TRABALHO ERA AVALIAR SE OS ALUNOS APRENDERAM A UTILIZAR AS ESTRUTURAS DE REPETIÇÃO, USO DE BIBLIOTECAS, TIPOS DE VARIÁVEIS, FUNÇÕES E PROCEDIMENTOS E ALGUNS CONHECIMENTOS BÁSICO SOBRE A LINGUAGEM PYTHON.
+O objetivo dos professores neste trabalho era avaliar se os alunos aprenderam a utilizar as estruturas de repetição, uso de bibliotecas, tipos de variáveis, funções e procedimentos e alguns conhecimentos básico sobre a linguagem python.
+![image](https://user-images.githubusercontent.com/66970724/220174879-661e6e15-20a4-47ab-beb5-3a671492c5ed.png)
+
 
